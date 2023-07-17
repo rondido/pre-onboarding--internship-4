@@ -8,9 +8,9 @@ class SearchService {
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
   }
-  async get() {
-    const res = await this.httpClient.create(`/sick`);
-    return res;
+  async get(query: string) {
+    const res = await this.httpClient.create(`/sick?q=${query}`);
+    return res.data;
   }
 }
 
