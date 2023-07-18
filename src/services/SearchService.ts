@@ -10,6 +10,7 @@ class SearchService {
   }
   async get(query: string) {
     const res = await this.httpClient.create(`/sick?q=${query}`);
+    console.info('calling api');
     return res.data;
   }
 }

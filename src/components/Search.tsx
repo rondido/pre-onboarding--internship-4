@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { searchService } from '../services/SearchService';
+import { useState, useEffect } from 'react';
 import SearchInput from './searchInput/SearchInput';
 import styled from 'styled-components';
+import useDebounce from '../hooks/useDebounce';
 
 interface Props {
   sickCd: string;
@@ -10,31 +10,71 @@ interface Props {
 
 export default function Search() {
   const [searchData, setSearchData] = useState<Props[]>([]);
+  const [selectedOption, setSelectedOption] = useState<number>(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>('');
 
-  const getSearch = async (textData: string) => {
-    if (textData.length === 0) {
-      setSearchData([]);
-      return;
-    }
-    const data: any = await searchService.get(textData);
-    setSearchData(data);
-  };
+  const debounceReSource = useDebounce(searchText, 300);
+
+  useEffect(() => {
+    setSearchData(debounceReSource);
+  }, [debounceReSource]);
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowUp') {
+        setSelectedOption(prevSelectedOption => {
+          const newSelectedOption = prevSelectedOption - 1;
+          return newSelectedOption < 0 ? searchData.length - 1 : newSelectedOption;
+        });
+      } else if (event.key === 'ArrowDown') {
+        setSelectedOption(prevSelectedOption => {
+          const newSelectedOption = prevSelectedOption + 1;
+          return newSelectedOption >= searchData.length ? 0 : newSelectedOption;
+        });
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [searchData]);
 
   return (
     <>
       <Base>
         <Wapper>
           <div>
-            <SearchInput getSearch={getSearch} />
-            <DataDiv>
+            <SearchInput setSearchText={setSearchText} setIsOpen={setIsOpen} />
+            <DataDiv open={isOpen}>
               <WapperUl>
-                {searchData.length === 0 ? (
+                <div>
                   <div>
-                    <p>검색어 없음</p>
+                    {searchData.length === 0 ? (
+                      <></>
+                    ) : (
+                      <div>
+                        <p>{searchText}</p>
+                        <span>추천 검색어</span>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  searchData.map(v => <ItemLi>{v.sickNm}</ItemLi>)
-                )}
+                </div>
+                <div>
+                  {searchData.length === 0 ? (
+                    <div>
+                      <p>검색어 없음</p>
+                    </div>
+                  ) : (
+                    searchData.map((v: Props, index: number) => (
+                      <ItemLi key={index} className={index === selectedOption ? 'selected' : ''}>
+                        {v.sickNm}
+                      </ItemLi>
+                    ))
+                  )}
+                </div>
               </WapperUl>
             </DataDiv>
           </div>
@@ -59,7 +99,7 @@ const Wapper = styled.div`
   flex-direction: column;
 `;
 
-const DataDiv = styled.div`
+const DataDiv = styled.div<{ open: boolean }>`
   background-color: white;
   display: flex;
   justify-content: center;
@@ -67,15 +107,20 @@ const DataDiv = styled.div`
   margin-top: 20px;
   height: 200px;
   border-radius: 10px;
+  display: ${(props: any) => (props.open ? 'block' : 'none')};
 `;
 
 const WapperUl = styled.ul`
   display: flex;
   flex-direction: column;
-  list-style: none;
   justify-content: flex-start;
+  width: 90%;
+  margin-top: 5px;
 `;
 
 const ItemLi = styled.li`
   display: flex;
+  &.selected {
+    background-color: red;
+  }
 `;
