@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 interface Props {
-  getSearch: (text: string) => void;
+  setSearchText: Dispatch<SetStateAction<string>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function SearchInput({ getSearch }: Props) {
+export default function SearchInput({ setSearchText, setIsOpen }: Props) {
   const searchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    getSearch(value);
+    setSearchText(value);
+    if (value.length > 0) {
+      setIsOpen(true);
+      return;
+    }
+    setIsOpen(false);
   };
+
   return (
     <Base>
       <Inputstyled
         type='text'
-        placeholder='검색어를 입력해주세요'
+        placeholder='질환명을 입력해주세요'
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => searchInputChange(e)}
       />
       <Buttonstyled>검색</Buttonstyled>
@@ -39,7 +46,7 @@ const Inputstyled = styled.input`
 
 const Buttonstyled = styled.button`
   background-color: #5ad2ff;
-  height: 52px;
+  height: 50px;
   width: 100px;
   border: none;
   color: white;

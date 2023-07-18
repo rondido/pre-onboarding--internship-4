@@ -1,11 +1,15 @@
-import { Route, Routes } from 'react-router-dom';
+import { Suspense } from 'react';
 import Search from './components/Search';
+import { GlobalStyles } from './styles/GlobalStyles';
 
 function App() {
   return (
-    <Routes>
-      <Route path='/' element={<Search />} />
-    </Routes>
+    <>
+      <Suspense fallback={<div>로딩중..</div>}>
+        <GlobalStyles />
+        <Search />
+      </Suspense>
+    </>
   );
 }
 
