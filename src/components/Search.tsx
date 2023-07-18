@@ -57,7 +57,7 @@ export default function Search() {
                     ) : (
                       <div>
                         <p>{searchText}</p>
-                        <span>추천 검색어</span>
+                        <span style={{ fontSize: '12px' }}>추천 검색어</span>
                       </div>
                     )}
                   </div>

@@ -9,9 +9,13 @@ class SearchService {
     this.httpClient = httpClient;
   }
   async get(query: string) {
-    const res = await this.httpClient.create(`/sick?q=${query}`);
-    console.info('calling api');
-    return res.data;
+    try {
+      const res = await this.httpClient.create(`/sick?q=${query}`);
+      console.info('calling api');
+      return res.data;
+    } catch (e) {
+      throw new Error();
+    }
   }
 }
 
