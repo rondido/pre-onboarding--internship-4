@@ -49,6 +49,17 @@
 npm install
 npm start
 ```
+## 서버 
+
+```
+https://github.com/walking-sunset/assignment-api.git
+```
+---
+```
+npm install
+npm start
+```
+
 ## 기능 구현 설명
 
 API 호출별로 로컬 캐싱 구현
