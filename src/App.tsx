@@ -1,4 +1,4 @@
-import SearchPage from './components/pages/SearchPage';
+import SearchPage from './pages/SearchPage';
 import { GlobalStyles } from './styles/GlobalStyles';
 
 function App() {
