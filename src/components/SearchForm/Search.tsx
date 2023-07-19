@@ -28,7 +28,6 @@ export default function Search() {
     setSelectedOption(searchKeyIndex);
   }, [searchKeyIndex]);
 
-  console.log(selectedOption);
   return (
     <>
       <Base>
