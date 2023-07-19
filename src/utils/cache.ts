@@ -13,7 +13,6 @@ export async function getCachedData(url: string) {
     const cacheStorage = await caches.open(INITIAL_STORAGE_NAME);
     const cachedResponse = await cacheStorage.match(url);
     const cached = await cachedResponse?.json();
-    console.log(cached);
     return await cached;
   } catch (error) {
     console.error('Error while getting data from cache:', error);

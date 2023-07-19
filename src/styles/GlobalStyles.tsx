@@ -4,6 +4,8 @@ export const GlobalStyles = createGlobalStyle`
     * {
         border: 0 solid #e5e7eb;
         box-sizing: border-box;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 17px;
     }
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
