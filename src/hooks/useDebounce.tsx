@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { searchService } from '../services/SearchService';
+import { searchService } from '../index';
 
 const useDebounce = (value: string, delay: number) => {
   const [sickNameData, setSickNameData] = useState([]);

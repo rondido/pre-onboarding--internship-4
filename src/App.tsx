@@ -1,4 +1,4 @@
-import Search from './components/Search';
+import Search from './components/SearchForm/Search';
 import { GlobalStyles } from './styles/GlobalStyles';
 
 function App() {

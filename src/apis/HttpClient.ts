@@ -26,5 +26,3 @@ export class HttpClient {
     }
   }
 }
-const initialUrl = 'http://localhost:4000';
-export const httpClient = new HttpClient(initialUrl);

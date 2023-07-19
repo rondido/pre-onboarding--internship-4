@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
+import search from '../../assets/search.png';
 interface Props {
   setSearchText: Dispatch<SetStateAction<string>>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -21,8 +22,7 @@ export default function SearchInput({ setSearchText, setIsOpen }: Props) {
       <Inputstyled
         type='text'
         placeholder='질환명을 입력해주세요'
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => searchInputChange(e)}
-      />
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => searchInputChange(e)}></Inputstyled>
       <Buttonstyled>검색</Buttonstyled>
     </Base>
   );
@@ -35,10 +35,15 @@ const Base = styled.div`
 
 const Inputstyled = styled.input`
   border: none;
-  width: 500px;
-  height: 50px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  width: 490px;
+  height: 49px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background-image: url(${search});
+  background-repeat: no-repeat;
+  background-position: 10px;
+  padding-right: 2px;
+  padding-left: 40px;
   &:focus {
     outline: none;
   }
