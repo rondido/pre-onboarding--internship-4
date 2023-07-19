@@ -1,5 +1,13 @@
+import SearchPage from './components/pages/SearchPage';
+import { GlobalStyles } from './styles/GlobalStyles';
+
 function App() {
-  return <div className='App'>test</div>;
+  return (
+    <>
+      <GlobalStyles />
+      <SearchPage />
+    </>
+  );
 }
 
 export default App;
