@@ -1,11 +1,11 @@
-import Search from './components/SearchForm/Search';
+import SearchPage from './components/pages/SearchPage';
 import { GlobalStyles } from './styles/GlobalStyles';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <Search />
+      <SearchPage />
     </>
   );
 }
