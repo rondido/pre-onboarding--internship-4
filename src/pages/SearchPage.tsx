@@ -1,4 +1,4 @@
-import Search from '../components/searchForm/Search';
+import Search from '../components/SearchForm/Search';
 
 export default function SearchPage() {
   return <Search />;
