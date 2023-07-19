@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import useDebounce from '../../hooks/useDebounce';
 import HeaderTitle from '../title/HeaderTitle';
 import SearchData from './SearchData';
+import useHandleKeyPress from '../../hooks/useHandleKeyPress';
 
 interface Props {
   sickCd: string;
@@ -13,6 +14,7 @@ interface Props {
 export default function Search() {
   const [searchData, setSearchData] = useState<Props[]>([]);
   const [selectedOption, setSelectedOption] = useState<number>(0);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
 
@@ -21,28 +23,12 @@ export default function Search() {
     setSearchData(debounceReSource);
   }, [debounceReSource]);
 
+  const searchKeyIndex = useHandleKeyPress(searchData);
   useEffect(() => {
-    const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowUp') {
-        setSelectedOption(prevSelectedOption => {
-          const newSelectedOption = prevSelectedOption - 1;
-          return newSelectedOption < 0 ? searchData.length - 1 : newSelectedOption;
-        });
-      } else if (event.key === 'ArrowDown') {
-        setSelectedOption(prevSelectedOption => {
-          const newSelectedOption = prevSelectedOption + 1;
-          return newSelectedOption >= searchData.length ? 0 : newSelectedOption;
-        });
-      }
-    };
+    setSelectedOption(searchKeyIndex);
+  }, [searchKeyIndex]);
 
-    document.addEventListener('keydown', handleKeyPress);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [searchData]);
-
+  console.log(selectedOption);
   return (
     <>
       <Base>
